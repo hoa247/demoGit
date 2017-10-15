@@ -18,7 +18,7 @@
 						<td style="text-align: center;"><img style="width: 100px;" src="{{ url('demo2/images/'.$row->c_photo) }}"></td>
 						<td>
 							<span id_member="{{ $row->id }}" onclick="getEdit({{ $row->id }})" class="edit_member btn btn-sm btn-primary" data-toggle="modal" data-target="#editModal"><span class=" glyphicon glyphicon-edit"></span></span>
-							<a class="btn btn-sm btn-primary" onclick="getDelete({{ $row->id }})" href=""><span style="color: white;" class="glyphicon glyphicon-remove"></span></a>
+							<a class="btn btn-sm btn-primary" onclick="getDelete({{ $row->id }})" href="#"><span style="color: white;" class="glyphicon glyphicon-remove"></span></a>
 						</td>
 					</tr>
 			@endforeach
