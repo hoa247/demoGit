@@ -33,6 +33,9 @@ class Controller_member extends Controller
         return response()->json($view);
         
     }
+    public function check_ajax(AddMember $request){
+        return "success";
+    }
     public function sort(){
         $sort=Request::get('sort');
         if(Session::has('to'))
@@ -52,6 +55,7 @@ class Controller_member extends Controller
 
         
     }
+
     public function add_ajax(AddMember $request){
         $c_name=Request::get('c_name');
         $c_address=Request::get('c_address');

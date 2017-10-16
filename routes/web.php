@@ -16,6 +16,7 @@ Route::get("home",function(){
 });
 Route::get('/','demo2\Controller_member@list_member');
 Route::post('add_ajax','demo2\Controller_member@add_ajax');
+Route::post('check_ajax','demo2\Controller_member@check_ajax');
 Route::post('edit_ajax/{id}','demo2\Controller_member@edit_ajax');
 Route::get('delete_member','demo2\Controller_member@delete_member');
 Route::get('edit_member','demo2\Controller_member@edit_member');

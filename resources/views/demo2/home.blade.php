@@ -17,6 +17,7 @@
 			        $('.'+$(this).attr('name')+'_numeric').css('display','none');
 			        $('.'+$(this).attr('name')+'_valid').css('display','none');
 			        $('.'+$(this).attr('name')+'_max').css('display','none');
+			        // $('.sub').attr('disabled', true);
 			    } else {
 			        $('.'+$(this).attr('name')+'_required').css('display','none');
 			        if($(this).attr('name')=='c_name'){
@@ -57,10 +58,34 @@
 					    }
 						  }
 			    }
+			    	
+			    	
+
+			    		var frm = $('#'+$(this).attr('name_frm'));
+					    $.ajax({
+						            type: frm.attr('method'),
+						            url: "check_ajax",
+						            data: frm.serialize(),
+						            success: function (data) {
+						                $('.sub').attr('disabled', false);
+						            },
+						            error: function (data) {
+						                $('.sub').attr('disabled', true);
+						            },
+						        });
 
 	  		});
+	  		$('.add_member').click(function(){
+				$('#add_name').val('');
+  				$('#add_address').val('');
+  				$('#add_age').val('');
+  				$('#add_photo').val('');
+  				$('.alert').css('display','none');
+  				$('.err').css('display','none');
+			});
 		    
-});
+		});
+
   	});
 	</script>
   <style type="text/css">
@@ -90,12 +115,12 @@
 			        </div>
 			        <div class="modal-body">
 			          <!-- --------------- -->
-			          	<form id="addForm" method="POST" action="{{ url('add_ajax') }}" enctype="multipart/form-data">
+			          	<form  id="addForm" method="POST" action="{{ url('add_ajax') }}" enctype="multipart/form-data">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}" >
 								<div class="row" style="margin-top: 5px;">
 									<div class="col-md-2">Name</div>
 									<div class="col-md-9">
-										<input id="add_name" value="{{ old('c_name') }}"  class="form-control" type="text" name="c_name" >
+										<input id="add_name" value="{{ old('c_name') }}" name_frm="addForm" class="form-control" type="text" name="c_name"  >
 										<div class="err c_name_required"  >The name field is required.</div>
 										<div class="err c_name_alpha"  >The name field may only alphabetic characters.</div>
 										<div class="err c_name_max"  >The name may not be greater than 100 characters.</div>
@@ -105,7 +130,7 @@
 								<div class="row" style="margin-top: 5px;">
 									<div class="col-md-2">Address</div>
 									<div class="col-md-9">
-										<textarea id="add_address" rows="2" cols="50"   class="form-control" name="c_address">{{ old('c_address') }}</textarea>
+										<textarea id="add_address" rows="2" cols="50" name_frm="addForm"  class="form-control" name="c_address">{{ old('c_address') }}</textarea>
 										<div class="err c_address_required"  >The address field is required.</div>
 										<div class="err c_address_valid"  >The address may only alphabetic characters.</div>
 										<div class="err c_address_max"  >The address may not be greater than 300 characters.</div>
@@ -115,7 +140,7 @@
 								<div class="row" style="margin-top: 5px;">
 									<div class="col-md-2">Age</div>
 									<div class="col-md-9">
-										<input id="add_age" value="{{ old('c_age') }}" class="form-control" type="text" name="c_age" autocomplete="off">
+										<input id="add_age" value="{{ old('c_age') }}" name_frm="addForm" class="form-control" type="text" name="c_age" autocomplete="off">
 										<div class="err c_age_required" >The age field is required.</div>
 										<div class="err c_age_numeric"  >The age field is numeric.</div>
 										<div class="err c_age_max"  >The age may not be greater than 2 characters.</div>
@@ -128,7 +153,7 @@
 									</div>
 								</div>
 								<div class="row col-xs-offset-5" style="margin-top: 5px;">
-									<input id="sub" class="sub btn btn-sm btn-primary" type="submit" value="Submit">
+									<input id="sub" disabled  class="sub btn btn-sm btn-primary" type="submit" value="Submit">
 									<input class="btn btn-sm btn-danger" type="reset" value="Reset">
 								</div>
 						</form>
@@ -156,13 +181,13 @@
 			        </div>
 			        <div class="modal-body">
 			          <!-- --------------- -->
-			          	<form id="editForm" method="POST" action="edit_ajax" enctype="multipart/form-data">
+			          	<form  id="editForm" method="POST" action="edit_ajax" enctype="multipart/form-data">
 			          			<input id="edit_id" type="hidden" name="id" value="{{ old('id') }}">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}" >
 								<div class="row" style="margin-top: 5px;">
 									<div class="col-md-2">Name</div>
 									<div class="col-md-9">
-										<input value="{{ old('c_name') }}" id="edit_name"  class="form-control" type="text" name="c_name" >
+										<input value="{{ old('c_name') }}" id="edit_name" name_frm="editForm"  class="form-control" type="text" name="c_name" >
 										<div class="err c_name_required"  >The name field is required.</div>
 										<div class="err c_name_alpha"  >The name field may only alphabetic characters.</div>
 										<div class="err c_name_max"  >The name may not be greater than 100 characters.</div>
@@ -172,7 +197,7 @@
 								<div class="row" style="margin-top: 5px;">
 									<div class="col-md-2">Address</div>
 									<div class="col-md-9">
-										<textarea id="edit_address" rows="2" cols="50"   class="form-control" name="c_address">{{ old('c_address') }}</textarea>
+										<textarea id="edit_address" rows="2" cols="50" name_frm="editForm"  class="form-control" name="c_address">{{ old('c_address') }}</textarea>
 										<div class="err c_address_required"  >The address field is required.</div>
 										<div class="err c_address_valid"  >The address may only alphabetic characters.</div>
 										<div class="err c_address_max"  >The address may not be greater than 300 characters.</div>
@@ -182,7 +207,7 @@
 								<div class="row" style="margin-top: 5px;">
 									<div class="col-md-2">Age</div>
 									<div class="col-md-9">
-										<input value="{{ old('c_age') }}" id="edit_age" class="form-control" type="text" name="c_age" autocomplete="off">
+										<input value="{{ old('c_age') }}" id="edit_age" name_frm="editForm" class="form-control" type="text" name="c_age" autocomplete="off">
 										<div class="err c_age_required"  >The age field is required.</div>
 										<div class="err c_age_numeric"  >The age field is numeric.</div>
 										<div class="err c_age_max"  >The age may not be greater than 2 characters.</div>
@@ -195,7 +220,7 @@
 									</div>
 								</div>
 								<div class="row col-xs-offset-5" style="margin-top: 5px;">
-									<input id="sub" class="sub btn btn-sm btn-primary" type="submit" value="Submit">
+									<input id="sub" disabled class="sub btn btn-sm btn-primary" type="submit" value="Submit">
 									<input class="btn btn-sm btn-danger" type="reset" value="Reset">
 								</div>
 						</form>
