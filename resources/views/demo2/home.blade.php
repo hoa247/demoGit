@@ -10,7 +10,7 @@
   <script type="text/javascript">
 		$(document).ready(function(){
 	  		$('form').find('.form-control').each(function(){
-	  		$(this).blur(function(){
+	  		$(this).change(function(){
 	  			if($(this).val()==""){
 			        $('.'+$(this).attr('name')+'_required').css('display','block');
 			        $('.'+$(this).attr('name')+'_alpha').css('display','none');
