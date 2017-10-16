@@ -13,11 +13,7 @@ use App\Http\Requests\editMember;
 class Controller_member extends Controller
 {
     public function list_member(){
-        if(Session::has('sort'))
-            $sort = Session::get('sort');
-        else
-            $sort = 'id';
-    	$data['arr'] = M_member::orderBy($sort, 'desc')->paginate(7);
+    	$data['arr'] = M_member::orderBy('id', 'desc')->paginate(7);
     	return view('demo2.home',$data);
     }
      public function load_member(){
@@ -25,7 +21,13 @@ class Controller_member extends Controller
             $sort = Session::get('sort');
         else
             $sort = 'id';
-        $data['arr'] = M_member::orderBy($sort, 'desc')->paginate(7);
+
+        if(Session::has('to'))
+            $to = Session::get('to');
+        else
+            $to = 'desc';
+
+        $data['arr'] = M_member::orderBy($sort, $to)->paginate(7);
         $data['arr']->withPath('');
         $view = view('demo2.table',$data)->render();
         return response()->json($view);
@@ -33,8 +35,22 @@ class Controller_member extends Controller
     }
     public function sort(){
         $sort=Request::get('sort');
+        if(Session::has('to'))
+            {
+                if(Session::get('to') == "desc")
+                    Session::put('to','asc'); 
+                else
+                    Session::put('to','desc'); 
+
+            }
+        else
+            Session::put('to','desc');   
+
         Session::put('sort',$sort);
         echo Session::get('sort');
+        echo Session::get('to');
+
+        
     }
     public function add_ajax(AddMember $request){
         $c_name=Request::get('c_name');

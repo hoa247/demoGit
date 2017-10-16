@@ -68,7 +68,7 @@
   		display: none;
 		color: red;
   	}
-
+	body{min-width: 790px;}
   </style>
 <body>
 	<nav class="navbar navbar-inverse ">
@@ -213,6 +213,8 @@
 		</div>
 		<!-- end edit -->
 		<style type="text/css">
+		    #tr:hover{    background-color: white;}
+		    #tr th:hover{    background-color: #f5f5f5;cursor: pointer;}
 			.container{min-width: 400px;}
 			.name{width: 150px;}
 		    .address{width: 500px;}
@@ -224,6 +226,11 @@
 		    .s_name {width:50px; }
 		    .s_address {width:100px; }
 		  	}
+		  	@media all and (max-width: 800px){
+		    
+		    .address{display: none;}
+		    }
+		  	}
 		  	
 		</style>
 		<!-- list member -->
@@ -231,11 +238,11 @@
 			<div class="panel-heading">List member</div>
 			<div id="tbl_list" class="panel-body">
 				<table class="table table-bordered table-hover table-condensed">
-					<tr>
-						<th style="width: 50px;">ID <span onclick="sort('id')" class=" glyphicon glyphicon-collapse-down"></span></th>
-						<th class="name" style="">Name <span onclick="sort('c_name')" class=" glyphicon glyphicon-collapse-down"></span></th>
-						<th class="address" style="">Address <span onclick="sort('c_address')" class=" glyphicon glyphicon-collapse-down"></span></th>
-						<th style="width: 75px;">Age <span onclick="sort('c_age')" class="glyphicon glyphicon-collapse-down"></span></th>
+					<tr id="tr">
+						<th onclick="sort('id')" style="width: 50px;">ID</th>
+						<th onclick="sort('c_name')" class="name" style="">Name</th>
+						<th onclick="sort('c_address')" class="address" style="">Address</th>
+						<th onclick="sort('c_age')" style="width: 75px;">Age</th>
 						<th>Photo</th>
 						<th style="width: 90px;">Action</th>
 					</tr>

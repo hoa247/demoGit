@@ -1,0 +1,23 @@
+[33mcommit 65a12ef54faf495e37415deef7f8c85b09d7e82a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Hoa <trandinhhoa.tc@gmail.com>
+Date:   Mon Oct 16 13:59:36 2017 +0700
+
+    Fix pagination
+
+[33mcommit 8726f5f5ca41d13d2fac4ef0f48db75e16e42129[m
+Author: Hoa <trandinhhoa.tc@gmail.com>
+Date:   Sun Oct 15 17:59:18 2017 +0700
+
+    Fix delete
+
+[33mcommit d70f1a34b5ef450d39d3f9778cb8e96dfa6c102a[m
+Author: Hoa <trandinhhoa.tc@gmail.com>
+Date:   Fri Oct 13 16:07:48 2017 +0700
+
+    laravel default
+
+[33mcommit cb95f10fc863f42c89dcf87fa99576c9830d1eaa[m[33m ([m[1;33mtag: Full1[m[33m)[m
+Author: Hoa <trandinhhoa.tc@gmail.com>
+Date:   Fri Oct 13 15:27:38 2017 +0700
+
+    add index file

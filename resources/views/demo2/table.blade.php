@@ -1,10 +1,10 @@
 <div id="tbl_list" style="padding: 0px;" class="panel-body">
 				<table class="table table-bordered table-hover table-condensed">
-					<tr>
-						<th style="width: 50px;">ID <span onclick="sort('id')" class=" glyphicon glyphicon-collapse-down"></span></th>
-						<th class="name" style="">Name <span onclick="sort('c_name')" class=" glyphicon glyphicon-collapse-down"></span></th>
-						<th class="address" style="">Address <span onclick="sort('c_address')" class=" glyphicon glyphicon-collapse-down"></span></th>
-						<th style="width: 75px;">Age <span onclick="sort('c_age')" class="glyphicon glyphicon-collapse-down"></span></th>
+					<tr id="tr">
+						<th onclick="sort('id')" style="width: 50px;">ID</th>
+						<th onclick="sort('c_name')" class="name" style="">Name</th>
+						<th onclick="sort('c_address')" class="address" style="">Address</th>
+						<th onclick="sort('c_age')" style="width: 75px;">Age</th>
 						<th>Photo</th>
 						<th style="width: 90px;">Action</th>
 					</tr>
