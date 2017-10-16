@@ -26,7 +26,7 @@ class Controller_member extends Controller
         else
             $sort = 'id';
         $data['arr'] = M_member::orderBy($sort, 'desc')->paginate(7);
-        $data['arr']->withPath('home');
+        $data['arr']->withPath('');
         $view = view('demo2.table',$data)->render();
         return response()->json($view);
         
