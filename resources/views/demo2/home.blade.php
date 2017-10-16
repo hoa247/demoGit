@@ -214,7 +214,7 @@
 		<!-- end edit -->
 		<style type="text/css">
 		    #tr:hover{    background-color: white;}
-		    #tr th:hover{    background-color: #f5f5f5;cursor: pointer;}
+		    #tr .cursor:hover{    background-color: #f5f5f5;cursor: pointer;}
 			.container{min-width: 400px;}
 			.name{width: 150px;}
 		    .address{width: 500px;}
@@ -237,12 +237,12 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">List member</div>
 			<div id="tbl_list" class="panel-body">
-				<table class="table table-bordered table-hover table-condensed">
+				<table class="table table-bordered table-condensed">
 					<tr id="tr">
-						<th onclick="sort('id')" style="width: 50px;">ID</th>
-						<th onclick="sort('c_name')" class="name" style="">Name</th>
-						<th onclick="sort('c_address')" class="address" style="">Address</th>
-						<th onclick="sort('c_age')" style="width: 75px;">Age</th>
+						<th onclick="sort('id')" class="cursor" style="width: 50px;">ID</th>
+						<th onclick="sort('c_name')" class="cursor name" style="">Name</th>
+						<th onclick="sort('c_address')" class="cursor address" style="">Address</th>
+						<th onclick="sort('c_age')" class="cursor" style="width: 75px;">Age</th>
 						<th>Photo</th>
 						<th style="width: 90px;">Action</th>
 					</tr>
