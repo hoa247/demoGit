@@ -220,7 +220,7 @@
 									</div>
 								</div>
 								<div class="row col-xs-offset-5" style="margin-top: 5px;">
-									<input id="sub" disabled class="sub btn btn-sm btn-primary" type="submit" value="Submit">
+									<input id="sub"  class="sub btn btn-sm btn-primary" type="submit" value="Submit">
 									<input class="btn btn-sm btn-danger" type="reset" value="Reset">
 								</div>
 						</form>
