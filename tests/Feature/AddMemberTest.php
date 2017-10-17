@@ -26,9 +26,10 @@ class AddMemberTest extends TestCase
             'c_age' => 23,
             
         ];
-    
         $response = $this->call('POST', 'add_ajax', $request);
-        
+        if($response->status() == 302)
+            print_r($response->exception->validator->messages()->messages());
+            
         $this->assertDatabaseHas('tbl_member', [
             'c_name' => 'hoa',
             'c_address' => 'ha noi',
@@ -39,8 +40,7 @@ class AddMemberTest extends TestCase
     public function testAddMemberSuccessHasImage()
     {
             copy('public\demo2\1\1.jpg','public\demo2\1.jpg');   
-         $image
-            = new UploadedFile(base_path('public\demo2\1.jpg'),
+        $image = new UploadedFile(base_path('public\demo2\1.jpg'),
             '1.png', 'image/png', 111, $error = null, $test = true);
         $request = [
             'c_name' => 'hoa',
@@ -72,7 +72,6 @@ class AddMemberTest extends TestCase
         ];
 
         $response = $this->call('POST', 'add_ajax', $request);
-        
         $this->assertDatabaseMissing('tbl_member', [
             'c_name' => 'hoa',
             'c_address' => 'ha noi',
