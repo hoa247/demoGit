@@ -56,7 +56,6 @@ class AddMemberTest extends TestCase
             'c_address' => 'ha noi',
             'c_age' => 23,
         ]);
-        // $this->assertDatabaseMissing('tbl_member', $request);
     }
     public function testAddMemberNotIsImage()
     {

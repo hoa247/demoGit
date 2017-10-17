@@ -26,6 +26,6 @@ class ValidAddress implements Rule
      */
     public function message()
     {
-        return 'The description may only alphabetic characters';
+        return 'The address may only alphabetic characters';
     }
 }
