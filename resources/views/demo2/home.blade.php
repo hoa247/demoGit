@@ -310,6 +310,7 @@
 			          		});
 		}
 		function getEdit(id) {
+			$('.sub').attr('disabled', false);
 			$('.alert').css('display','none');
   			$('.err').css('display','none');
 			$('#edit_photo').val('');
