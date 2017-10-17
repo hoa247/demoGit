@@ -34,6 +34,7 @@ class EditMemberTest extends TestCase
     }
     public function testEditMemberSuccessHasImage()
     {
+        copy('public\demo2\1\2.jpg','public\demo2\2.jpg'); 
         $member = factory(M_member::class)->create();
         $image
             = new UploadedFile(base_path('public\demo2\2.jpg'),

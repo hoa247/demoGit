@@ -38,7 +38,7 @@ class AddMemberTest extends TestCase
     }
     public function testAddMemberSuccessHasImage()
     {
-        
+            copy('public\demo2\1\1.jpg','public\demo2\1.jpg');   
          $image
             = new UploadedFile(base_path('public\demo2\1.jpg'),
             '1.png', 'image/png', 111, $error = null, $test = true);
