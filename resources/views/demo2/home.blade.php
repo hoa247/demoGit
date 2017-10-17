@@ -242,9 +242,9 @@
 		    #tr .cursor:hover{    background-color: #f5f5f5;cursor: pointer;}
 			.container{min-width: 400px;}
 			.name{width: 150px;}
-		    .address{width: 500px;}
+		    .address{width: 400px;}
 		    .s_name {width:150px; word-wrap:break-word;display: inline-block;}
-		    .s_address {width:500px; word-wrap:break-word;display: inline-block;}
+		    .s_address {width:400px; word-wrap:break-word;display: inline-block;}
 		    @media all and (max-width: 1000px){
 		     .name{width: 50px;}
 		    .address{width: 100px;}
