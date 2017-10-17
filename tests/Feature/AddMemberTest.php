@@ -17,22 +17,114 @@ class AddMemberTest extends TestCase
 	use WithoutMiddleware;
 	use DatabaseMigrations;
 
-   
-    public function testAddMemberSuccess()
+   public function testAddMemberSuccess()
     {
-        UploadedFile::fake()->image('avatar.jpg');
+
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            
+        ];
+    
+        $response = $this->call('POST', 'add_ajax', $request);
+        
+        $this->assertDatabaseHas('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+        // $this->assertDatabaseMissing('tbl_member', $request);
+    }
+    public function testAddMemberSuccessHasImage()
+    {
+        
+         $image
+            = new UploadedFile(base_path('public\demo2\1.jpg'),
+            '1.png', 'image/png', 111, $error = null, $test = true);
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            'c_photo' => $image,
+        ];
+    
+        $response = $this->call('POST', 'add_ajax', $request);
+        
+        $this->assertDatabaseHas('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+        // $this->assertDatabaseMissing('tbl_member', $request);
+    }
+    public function testAddMemberNotIsImage()
+    {
+
+         $image
+            = new UploadedFile(base_path('public\demo2\abc.png'),
+            'Document.txt', 'text/txt', 200, $error = null, $test = true);
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            'c_photo' => $image,
+        ];
+
+        $response = $this->call('POST', 'add_ajax', $request);
+        
+        $this->assertDatabaseMissing('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+        
+    }
+    public function testAddMemberWrongFormatImage()
+    {
+
+         $image
+            = new UploadedFile(base_path('public\demo2\Picture5.bmp'),
+            'Picture5.bmp', 'images/bmp', 200, $error = null, $test = true);
     	$request = [
     		'c_name' => 'hoa',
     		'c_address' => 'ha noi',
             'c_age' => 23,
-
-    		
+            'c_photo' => $image,
     	];
-    	$response = $this->call('POST', 'add_ajax', $request);
-    	$this->assertDatabaseHas('tbl_member', $request);
-    	// $this->assertDatabaseMissing('tbl_member', $request);
-    }
 
+    	$response = $this->call('POST', 'add_ajax', $request);
+        
+    	$this->assertDatabaseMissing('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+    	
+    }
+    public function testAddMemberImageEqual10Mb()
+    {
+
+         $image
+            = new UploadedFile(base_path('..\1.jpg'),
+            'Document.txt', 'text/txt', 200, $error = null, $test = true);
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            'c_photo' => $image,
+        ];
+
+        $response = $this->call('POST', 'add_ajax', $request);
+        
+        $this->assertDatabaseMissing('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+        
+    }
+    
     public function testAddMemberNameNotAlphabeticCharacters()
     {
     	$request = [
@@ -62,6 +154,16 @@ class AddMemberTest extends TestCase
     	];
     	$response = $this->call('POST', 'add_ajax', $request);
     	$this->assertDatabaseMissing('tbl_member', $request);
+    }
+    public function testAddMemberAddressNotAlphabeticCharacters()
+    {
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'abc#',
+            'c_age' => 23,
+        ];
+        $response = $this->call('POST', 'add_ajax', $request);
+        $this->assertDatabaseMissing('tbl_member', $request);
     }
     public function testAddMemberAgeIsNotNumeric()
     {

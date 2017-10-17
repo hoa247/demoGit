@@ -52,11 +52,10 @@ class Controller_member extends Controller
         Session::put('sort',$sort);
         echo Session::get('sort');
         echo Session::get('to');
-
-        
     }
 
     public function add_ajax(AddMember $request){
+        // dd($request->all());
         $c_name=Request::get('c_name');
         $c_address=Request::get('c_address');
         $c_age=Request::get('c_age');

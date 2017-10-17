@@ -22,7 +22,6 @@ class EditMemberTest extends TestCase
     public function testEditMemberSuccess()
     {
     	$member = factory(M_member::class)->create();
-        UploadedFile::fake()->image('avatar.jpg');
     	$request = [
     		'c_name' => 'hoa',
     		'c_address' => 'ha noi',
@@ -32,6 +31,86 @@ class EditMemberTest extends TestCase
     	$response = $this->call('POST', 'edit_ajax/'.$member->id, $request);
     	$this->assertDatabaseHas('tbl_member', $request);
     	// $this->assertDatabaseMissing('tbl_member', $request);
+    }
+    public function testEditMemberSuccessHasImage()
+    {
+        $member = factory(M_member::class)->create();
+        $image
+            = new UploadedFile(base_path('public\demo2\2.jpg'),
+            '2.png', 'image/png', 111, $error = null, $test = true);
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            'c_photo' => $image,
+        ];
+
+        $response = $this->call('POST', 'edit_ajax/'.$member->id, $request);
+        $this->assertDatabaseHas('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+    }
+    public function testEditMemberNotIsImage()
+    {
+        $member = factory(M_member::class)->create();
+        $image
+            = new UploadedFile(base_path('public\demo2\abc.png'),
+            'Document.txt', 'text/txt', 200, $error = null, $test = true);
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            'c_photo' => $image,
+        ];
+
+        $response = $this->call('POST', 'edit_ajax/'.$member->id, $request);
+        $this->assertDatabaseMissing('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+    }
+    public function testEditMemberWrongFormatImage()
+    {
+        $member = factory(M_member::class)->create();
+        $image
+            = new UploadedFile(base_path('public\demo2\Picture5.bmp'),
+            'Picture5.bmp', 'images/bmp', 200, $error = null, $test = true);
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            'c_photo' => $image,
+        ];
+
+        $response = $this->call('POST', 'edit_ajax/'.$member->id, $request);
+        $this->assertDatabaseMissing('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
+    }
+    public function testEditMemberImageEqual10Mb()
+    {
+        $member = factory(M_member::class)->create();
+        $image
+            = new UploadedFile(base_path('..\1.jpg'),
+            'Document.txt', 'text/txt', 200, $error = null, $test = true);
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+            'c_photo' => $image,
+        ];
+
+        $response = $this->call('POST', 'edit_ajax/'.$member->id, $request);
+        $this->assertDatabaseMissing('tbl_member', [
+            'c_name' => 'hoa',
+            'c_address' => 'ha noi',
+            'c_age' => 23,
+        ]);
     }
     public function testEditMemberNameNotAlphabeticCharacters()
     {
@@ -65,6 +144,17 @@ class EditMemberTest extends TestCase
     	];
     	$response = $this->call('POST', 'edit_ajax/'.$member->id, $request);
     	$this->assertDatabaseMissing('tbl_member', $request);
+    }
+    public function testEditMemberAddressNotAlphabeticCharacters()
+    {
+        $member = factory(M_member::class)->create();
+        $request = [
+            'c_name' => 'hoa',
+            'c_address' => 'abc#',
+            'c_age' => 23,
+        ];
+        $response = $this->call('POST', 'edit_ajax/'.$member->id, $request);
+        $this->assertDatabaseMissing('tbl_member', $request);
     }
     public function testEditMemberAgeIsNotNumeric()
     {
